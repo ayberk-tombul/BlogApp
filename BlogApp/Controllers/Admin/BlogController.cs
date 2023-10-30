@@ -17,6 +17,10 @@ namespace BlogApp.Controllers.Admin
         [HttpGet]
         public IActionResult Index(BlogSearchModel model)
         {
+            ViewBag.Active = "Blog";
+
+
+
             //if(model.CreatedDate == DateTime.MinValue && string.IsNullOrWhiteSpace(model.Title))
             //{
             //    return View();
@@ -37,7 +41,22 @@ namespace BlogApp.Controllers.Admin
             }
 
 
-            var blogs = query.ToList();
+            ViewBag.PageModel = new PageModel
+            {
+                ActivePage = model.ActivePage,
+
+                PageCount = (int)Math.Ceiling((decimal)(query.Count()) / model.PageSize),
+            };
+
+
+            var blogs = query.Skip((model.ActivePage -1)*model.PageSize).Take(model.PageSize).ToList();
+
+            /* 5 kayıtı nsıl geçiyor
+             * Acaba ilk kayıdı hiç okumadan 2.Sayfa için 5 kayıt mı seçiyor
+             * ilk 5 kaydıda mı okuyor mu ?
+             
+             */
+
             return View(blogs);
         }
     }

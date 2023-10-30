@@ -2,6 +2,8 @@
 @model List<Blog>
 @{
     Layout = "_Layout";
+
+    var pageModel = (BlogApp.Models.PageModel)ViewBag.PageModel;
 }
 
 <div class="container mt-3">
@@ -80,6 +82,33 @@
 
     }
 
+    <div class="float-end">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
 
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= pageModel.PageCount; i++)
+                {
+                    <li class="page-item"><a class="page-link" asp-action="Index" asp-controller="Blog" asp-route-ActivePage="1">@i</a></li>
+                }
+
+                
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+
+
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 
 </div>
