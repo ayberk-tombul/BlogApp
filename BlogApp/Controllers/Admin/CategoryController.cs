@@ -26,6 +26,7 @@ namespace BlogApp.Controllers.Admin
 
         public IActionResult Index()
         {
+
             ViewBag.Active = "Category";
             var categories = this.context.Categories.AsNoTracking().ToList();
             return View(categories);
@@ -33,7 +34,9 @@ namespace BlogApp.Controllers.Admin
 
         public IActionResult CreateOrUpdate(int id, ViewType type)
         {
+
             ViewBag.Active = "Category";
+
 
             ViewBag.Type = type;
 
@@ -56,6 +59,8 @@ namespace BlogApp.Controllers.Admin
         public IActionResult CreateOrUpdate(Category category)
         {
             ViewBag.Active = "Category";
+
+
             if (category.Id == 0)
             {
                 category.SeoUrl = ConvertSeoUrl(category.Definition);
@@ -87,18 +92,23 @@ namespace BlogApp.Controllers.Admin
         public IActionResult Create()
         {
             ViewBag.Active = "Category";
+
             return View();
         }
+
 
         public IActionResult Remove(int id)
         {
             ViewBag.Active = "Category";
-            var deletedCategory = this.context.Categories.SingleOrDefault(x=>x.Id == id);
+
+            var deletedCategory = this.context.Categories.SingleOrDefault(x => x.Id == id);
             this.context.Categories.Remove(deletedCategory);
+
             this.context.SaveChanges();
 
             return RedirectToAction("Index");
         }
+
 
 
         private string ConvertSeoUrl(string definition)
